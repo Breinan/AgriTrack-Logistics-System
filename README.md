@@ -30,14 +30,12 @@ You can get the project files in two ways:
 
 Clone the Repository: Open your terminal and type:
 
-git clone https://github.com/breinnn/AgriTrack-Logistics-System.git
+https://github.com/Breinan/AgriTrack-Logistics-System
 
-Direct Download: Simply download the main.c file from this repository.
+Simply download the main.c file from this repository.
 
 ## 2. Compile the Program
-Open your terminal or Command Prompt in the folder where the file is saved and type:
-
-gcc main.c -o agritrack
+Open your terminal or Command Prompt in the folder where the file is saved 
 
 ## 3. Run the Application
 Once compiled, start the program by typing:
