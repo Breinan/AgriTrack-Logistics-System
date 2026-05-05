@@ -1,39 +1,44 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stdio.h>  
+#include <stdlib.h>  
+#include <string.h>  
 
-// structures used in the program 
 
+// Data Structure_Singly Linked List
+// Stores registered crops
 struct crop {
     char name[50];
-    struct crop *next;
+    struct crop *next; 
 };
 
+// Data Structure_Queue (FIFO)
+// Stores harvested items in inventory
 struct item {
+    char name[50];
+    int qty;          
+    int days;          
+    struct item *next; 
+};
+
+// Data Structure_Stack (LIFO)
+// Stores dispatched items for undo operations
+struct undo {
     char name[50];
     int qty;
     int days;
-    struct item *next;
+    struct undo *next; 
 };
 
-struct undo {
-    char name[50];
-    int qty; 
-    int days;
-    struct undo *next;
-};
 
-// main pointers for linked list, queue, and stack 
-
+// Linked List, Queue, and Stack
 struct crop *head = NULL;
 struct item *front = NULL, *rear = NULL;
 struct undo *top = NULL;
 
-//add a crop to the crop list 
 
+
+// ALGORITHM 1: Singly Linked List 
 void addCrop() {
     struct crop *newCrop, *temp;
-
     newCrop = (struct crop*)malloc(sizeof(struct crop));
 
     printf("Crop name: ");
@@ -50,30 +55,24 @@ void addCrop() {
         }
         temp->next = newCrop;
     }
-
     printf("Crop added.\n");
 }
 
-// display all crops 
-
+// ALGORITHM 2: Linked List Traversal (Display Crops)
 void showCrop() {
     struct crop *temp = head;
-
     if(head == NULL) {
         printf("No crops available.\n");
         return;
     }
-
     printf("\n--- Crop List ---\n");
-
     while(temp != NULL) {
         printf("%s\n", temp->name);
         temp = temp->next;
     }
 }
 
-// add harvested item into inventory queue 
-
+// ALGORITHM 3: Queue Enqueue (Add Harvest)
 void addHarvest() {
     char searchName[50];
     struct crop *temp = head;
@@ -87,21 +86,21 @@ void addHarvest() {
     printf("Enter Crop name to harvest: ");
     scanf(" %[^\n]", searchName);
 
-    // Traverse the Crop List to check if the crop exists
+    // Search crop list
     while (temp != NULL) {
         if (strcmp(temp->name, searchName) == 0) {
             found = 1;
             break;
-        }
+  }
         temp = temp->next;
     }
 
     if (found == 0) {
         printf("Error: '%s' is not in the Crop List. Not found!\n", searchName);
-        return; // This stops the function from adding the harvest
+        return;
     }
 
-    // If found, proceed to add to inventory
+    // If found, enqueue into inventory
     struct item *newItem = (struct item*)malloc(sizeof(struct item));
     strcpy(newItem->name, searchName);
 
@@ -119,156 +118,113 @@ void addHarvest() {
         rear->next = newItem;
         rear = newItem;
     }
-
     printf("Harvest added successfully!\n");
 }
-// show all items in inventory 
 
+// ALGORITHM 4: Queue Traversal (Display Inventory)
 void showInventory() {
     struct item *temp = front;
-
     if(front == NULL) {
         printf("No inventory.\n");
         return;
     }
-
     printf("\n--- Inventory ---\n");
-
     while(temp != NULL) {
-        printf("%s | %dkg | %d days left\n",
-               temp->name, temp->qty, temp->days);
+        printf("%s | %dkg | %d days left\n", temp->name, temp->qty, temp->days);
         temp = temp->next;
-    }
+}
 }
 
-// save dispatched item for undo 
-
+// ALGORITHM 5: Stack Push (Save Dispatch for Undo)
 void pushUndo(char n[], int q, int d) {
-    struct undo *newUndo;
-
-    newUndo = (struct undo*)malloc(sizeof(struct undo));
-
+    struct undo *newUndo = (struct undo*)malloc(sizeof(struct undo));
     strcpy(newUndo->name, n);
     newUndo->qty = q;
     newUndo->days = d;
-
     newUndo->next = top;
     top = newUndo;
 }
 
-// remove oldest item from queue 
-
+// ALGORITHM 6: Queue Dequeue (Dispatch Item)
 void dispatch() {
     struct item *temp;
-
     if(front == NULL) {
         printf("Nothing to dispatch.\n");
         return;
     }
-
     temp = front;
-
     printf("Dispatched: %s\n", temp->name);
 
+    // Save to stack for undo
     pushUndo(temp->name, temp->qty, temp->days);
 
-    front = front->next;
-
-    if(front == NULL)
-        rear = NULL;
-
+ front = front->next;
+    if(front == NULL) rear = NULL;
     free(temp);
 }
 
-// restore last dispatched item 
-
+// ALGORITHM 7: Stack Pop (Undo Dispatch)
 void undoLast() {
     struct item *newItem;
     struct undo *temp;
-
     if(top == NULL) {
         printf("Nothing to undo.\n");
         return;
     }
-
     newItem = (struct item*)malloc(sizeof(struct item));
-
     strcpy(newItem->name, top->name);
     newItem->qty = top->qty;
     newItem->days = top->days;
 
     newItem->next = front;
     front = newItem;
-
-    if(rear == NULL)
-        rear = newItem;
+    if(rear == NULL) rear = newItem;
 
     temp = top;
     top = top->next;
     free(temp);
-
     printf("Undo successful.\n");
 }
 
-// search crop in inventory 
-
+// ALGORITHM 8: Linear Search (Find Item in Inventory)
 void searchItem() {
     struct item *temp = front;
     char find[50];
     int found = 0;
-
     printf("Enter crop name: ");
     scanf(" %[^\n]", find);
 
     while(temp != NULL) {
         if(strcmp(temp->name, find) == 0) {
-            printf("Found: %s | %dkg | %d days\n",
-                   temp->name, temp->qty, temp->days);
+            printf("Found: %s | %dkg | %d days\n", temp->name, temp->qty, temp->days);
             found = 1;
         }
         temp = temp->next;
     }
-
-    if(found == 0)
-        printf("Not found.\n");
+if(found == 0) printf("Not found.\n");
 }
 
-// sort inventory by expiry days 
-
+// ALGORITHM 9: Bubble Sort–like (Sort by Expiry Days)
 void sortItems() {
     struct item *i, *j;
     char n[50];
     int q, d;
-
     for(i = front; i != NULL; i = i->next) {
         for(j = i->next; j != NULL; j = j->next) {
-
             if(i->days > j->days) {
-
-                strcpy(n, i->name);
-                q = i->qty;
-                d = i->days;
-
-                strcpy(i->name, j->name);
-                i->qty = j->qty;
-                i->days = j->days;
-
-                strcpy(j->name, n);
-                j->qty = q;
-                j->days = d;
-            }
-        }
+                strcpy(n, i->name); q = i->qty; d = i->days;
+                strcpy(i->name, j->name); i->qty = j->qty; i->days = j->days;
+                strcpy(j->name, n); j->qty = q; j->days = d;
+     }
+     }
     }
-
     printf("Sorted by expiry.\n");
 }
 
-// check the items if the spoilage is close 
-
+// ALGORITHM 10: Condition Check (Spoilage Warning)
 void spoilage() {
     struct item *temp = front;
     int found = 0;
-
     while(temp != NULL) {
         if(temp->days <= 2) {
             printf("WARNING: %s may spoil soon!\n", temp->name);
@@ -276,32 +232,16 @@ void spoilage() {
         }
         temp = temp->next;
     }
-
-    if(found == 0)
-        printf("No spoilage risk.\n");
+    if(found == 0) printf("No spoilage risk.\n");
 }
 
-// display the summary report 
 
-void report() {
-    struct item *temp = front;
-    int total = 0, count = 0;
 
-    while(temp != NULL) {
-        total += temp->qty;
-        count++;
-        temp = temp->next;
-    }
 
-    printf("Total items: %d\n", count);
-    printf("Total quantity: %dkg\n", total);
-}
-
-// main menu 
+// MAIN MENU SYSTEM
 
 int main() {
     int ch;
-
     printf("---------------------------------\n");
     printf("        WELCOME TO\n");
     printf("  AgriTrack: Farm Logistics System\n");
@@ -309,38 +249,36 @@ int main() {
 
     do {
         printf("\n=========== MENU ===========\n");
-        printf("1. Add Crop\n");
-        printf("2. Show Crops\n");
-        printf("3. Add Harvest\n");
-        printf("4. Show Inventory\n");
-        printf("5. Dispatch\n");
-        printf("6. Undo Dispatch\n");
-        printf("7. Search Crop\n");
-        printf("8. Sort by Expiry\n");
-        printf("9. Check Spoilage\n");
-        printf("10. Report\n");
-        printf("11. Exit\n");
+        printf("1. Add Crop\n");         
+        printf("2. Show Crops\n");     
+        printf("3. Add Harvest\n");    
+        printf("4. Show Inventory\n");  
+        printf("5. Dispatch\n");         
+        printf("6. Undo Dispatch\n");   
+        printf("7. Search Crop\n");      
+        printf("8. Sort by Expiry\n");   
+        printf("9. Check Spoilage\n");   
+        printf("10. Exit\n");
         printf("============================\n");
 
         printf("Choice: ");
         scanf("%d", &ch);
 
-        switch(ch) {
-            case 1: addCrop(); break;
-            case 2: showCrop(); break;
-            case 3: addHarvest(); break;
-            case 4: showInventory(); break;
-            case 5: dispatch(); break;
-            case 6: undoLast(); break;
-            case 7: searchItem(); break;
-            case 8: sortItems(); break;
-            case 9: spoilage(); break;
-            case 10: report(); break;
-            case 11: printf("Goodbye!\n"); break;
-            default: printf("Invalid choice.\n");
+      switch(ch) {
+    case 1: addCrop(); break;
+    case 2: showCrop(); break;
+    case 3: addHarvest(); break;
+    case 4: showInventory(); break;
+    case 5: dispatch(); break;
+    case 6: undoLast(); break;
+      case 7: searchItem(); break;
+    case 8: sortItems(); break;
+    case 9: spoilage(); break;
+    case 10: printf("Goodbye!\n"); break;
+        default: printf("Invalid choice.\n");
         }
 
-    } while(ch != 11);
+    } while(ch != 10);
 
     return 0;
 }
