@@ -12,9 +12,26 @@ AgriTrack is a simple, user-friendly tool built in C to help farmers stay organi
 * **Stack:** It uses LIFO (Last-In, First-Out) to know the very last thing we dispatched so we can bring it back if we made a mistake.
 
 ## Algorithms
-* **Linear Search:** We used this to scan through the inventory when searching for a specific crop by name. It checks each item one by one until it finds a match.
+* **Linked List Insertion:** Adds a new crop node at the end of the linked list.
 
-* **Bubble Sort:** We used this to reorganize our inventory. It compares items and swaps them if they are in the wrong order, ensuring the items closest to expiring move to the top of the list.
+* **Linked List Traversal:** Iterates through the crop list to display all crops.
+
+* **Queue Enqueue:** Adds a harvested item to the rear of the inventory queue.
+
+* **Queue Traversal:** Iterates through the queue to display all inventory items.
+
+* **Stack Push:** Saves a dispatched item onto the stack for undo.
+
+* **Queue Dequeue:** Removes the oldest item from the inventory queue.
+
+* **Stack Pop:**  
+Restores the last dispatched item back into the queue.
+
+* **Linear Search:** Searches for a crop in the inventory queue.
+
+* **Bubble Sort–like Algorithm:**  Sorts inventory items by expiry days using data swapping.
+
+* **Condition Check:** Checks if any items have 2 days left and warns of spoilage.
 
 ## Key Features
 * **Crop Management:** Keep a record of all the crops we grow or available in our farm
@@ -22,32 +39,13 @@ AgriTrack is a simple, user-friendly tool built in C to help farmers stay organi
 * **Easy Dispatch:** Remove items from stock 
 * **Mistake Proof:** Use the Undo feature to instantly restore a dispatched item.
 * **Safety Alerts:** Automatically flags items that are within 2 days of spoiling.
-* **Summary Reports:** Get a quick look at total stock count and weight.
 
 
-## 1. Get the Source Code
-You can get the project files in two ways:
-
-Clone the Repository: Open your terminal and type:
-
-https://github.com/Breinan/AgriTrack-Logistics-System
-
-Simply download the main.c file from this repository.
-
-## 2. Compile the Program
-Open your terminal or Command Prompt in the folder where the file is saved 
-
-## 3. Run the Application
-Once compiled, start the program by typing:
-
-On Windows: agritrack.exe
-
-On Mac or Linux: ./agritrack
 ## Academic Integrity & AI Attribution
 This project was created for academic submission by our group (4 members).
 
 ## AI Tools Used
-* Google, ChatGPT, and Dola
+* Google and ChatGPT
 
 ## How it helped
-We used these tools to brainstorm and understand the logic for the Linear Search, Bubble Sort, and Undo functions. The AI also helped explain technical concepts we were unfamiliar with.
+We used these tools to brainstorm and understand the logic for the Linear Search, Bubble Sort, and other algorithms we were unfamiliar with.
