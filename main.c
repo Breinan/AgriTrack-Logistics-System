@@ -36,7 +36,7 @@ struct undo *top = NULL;
 
 
 
-// ALGORITHM 1: Singly Linked List 
+// ALGORITHM 1: Linked List Insertion (add crops) 
 void addCrop() {
     struct crop *newCrop, *temp;
     newCrop = (struct crop*)malloc(sizeof(struct crop));
