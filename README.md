@@ -57,7 +57,7 @@ A console window will appear showing the WELCOME TO AgriTrack: Farm Logistics Sy
 ### ### AI Tools Used
 * **Primary Tools:** Google Gemini, ChatGPT, and Dola
 
----
+
 
 ### ### AI Prompts Used
 * *"How do I make an Undo feature in C using a Stack?"*
@@ -65,7 +65,7 @@ A console window will appear showing the WELCOME TO AgriTrack: Farm Logistics Sy
 * *"How do I use Linear Search to check user inputs against a crop list in C?"*
 * *"Help us fix pointer errors when adding and removing items from a queue."*
 
----
+
 
 ### ### How It Was Implemented
 * We used AI to help us find and fix errors in our code.
