@@ -52,14 +52,14 @@ A console window will appear showing the WELCOME TO AgriTrack: Farm Logistics Sy
 
 ---
 
-## ## Academic Integrity and AI Use
+##Academic Integrity and AI Use
 
-### ### AI Tools Used
+## AI Tools Used
 * **Primary Tools:** Google Gemini, ChatGPT, and Dola
 
 
 
-### ### AI Prompts Used
+### AI Prompts Used 
 * *"How do I make an Undo feature in C using a Stack?"*
 * *"Explain how Bubble Sort works on a linked list."*
 * *"How do I use Linear Search to check user inputs against a crop list in C?"*
@@ -67,7 +67,7 @@ A console window will appear showing the WELCOME TO AgriTrack: Farm Logistics Sy
 
 
 
-### ### How It Was Implemented
+### How It Was Implemented
 * We used AI to help us find and fix errors in our code.
 * AI helped us fix broken pointers and memory bugs so the code runs smoothly.
 * We used AI to make sure our program compiles perfectly in Dev-C++ without any warnings.
